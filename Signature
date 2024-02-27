@@ -1,0 +1,53 @@
+// ... Autres importations
+
+// Signature
+const signature = '@Zlormack2024';
+
+// ... Autres configurations et routes
+
+// Route pour afficher tous les articles
+app.get('/', async (req, res) => {
+  const articles = await Article.find();
+  res.render('index', { articles: articles, backgroundColor: articles.length > 0 ? articles[0].backgroundColor : '#ffffff', signature: signature });
+});
+
+// ... Autres routes
+<style>
+  body {
+    background-color: <%= backgroundColor %>;
+  }
+</style>
+
+<h1>Blog</h1>
+<% articles.forEach(article => { %>
+  <h2><%= article.title %></h2>
+  <p><%= article.content %></p>
+  <p><em>Published by <%= signature %> on <%= article.createdAt %></em></p>
+<% }); %>
+// ... Autres importations
+
+// Signature
+const signature = '@Zlormack2024';
+const suiteName = 'EpicBlog';
+
+// ... Autres configurations et routes
+
+// Route pour afficher tous les articles
+app.get('/', async (req, res) => {
+  const articles = await Article.find();
+  res.render('index', { articles: articles, backgroundColor: articles.length > 0 ? articles[0].backgroundColor : '#ffffff', signature: signature, suiteName: suiteName });
+});
+
+// ... Autres routes
+<style>
+  body {
+    background-color: <%= backgroundColor %>;
+  }
+</style>
+
+<h1><%= EpicBlog - Blog %> - Blog</h1>
+<% articles.forEach(article => { %>
+  <h2><%= article.title %></h2>
+  <p><%= article.content %></p>
+  <p><em>Published by <%= signature %> on <%= article.createdAt %></em></p>
+<% }); %>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Suite de Blogs</title>
+</head>
+<body>
+    <h1>Créer un nouveau blog</h1>
+
+    <form id="blogForm">
+        <label for="title">Titre du blog:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="content">Contenu du blog:</label>
+        <textarea id="content" name="content" required></textarea>
+
+        <button type="button" onclick="createBlog()">Créer le blog</button>
+    </form>
+
+    <div id="blogsList">
+        <!-- La liste des blogs créés sera affichée ici -->
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+// Exemple simple de gestion des blogs en JavaScript
+
+// Tableau pour stocker les blogs
+let blogs = [];
+
+function createBlog() {
+    // Récupérer les données du formulaire
+    const title = document.getElementById('title').value;
+    const content = document.getElementById('content').value;
+
+    // Créer un objet blog
+    const newBlog = {
+        title: title,
+        content: content
+    };
+
+    // Ajouter le blog au tableau
+    blogs.push(newBlog);
+
+    // Mettre à jour l'affichage de la liste des blogs
+    displayBlogs();
+}
+
+function displayBlogs() {
+    const blogsListContainer = document.getElementById('blogsList');
+
+    // Effacer le contenu actuel
+    blogsListContainer.innerHTML = '';
+
+    // Afficher chaque blog dans la liste
+    blogs.forEach(blog => {
+        const blogDiv = document.createElement('div');
+        blogDiv.innerHTML = `<h2>${blog.title}</h2><p>${blog.content}</p>`;
+        blogsListContainer.appendChild(blogDiv);
+    });
+}
+// Ajoutez cette ligne après les routes existantes
+app.get('/compose', (req, res) => {
+  res.render('compose');
+});
+
+// Ajoutez cette ligne après les routes existantes
+app.post('/compose', async (req, res) => {
+  const article = new Article({
+    title: req.body.title,
+    content: req.body.content
+  });
+  await article.save();
+  res.redirect('/');
+});
+<h1>Compose</h1>
+<form action="/compose" method="post">
+  <label for="title">Title</label>
+  <input type="text" id="title" name="title" required>
+  <label for="content">Content</label>
+  <textarea id="content" name="content" required></textarea>
+  <button type="submit">Publish</button>
+</form>
